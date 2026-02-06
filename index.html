@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Happy Rose Day 🌹
+    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet" />
+    <style>
+      :root {
+            --primary: #ff4d6d;
+            --secondary: #c9184a;
+            --dark: #590d22;
+            --light: #fff0f3;
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: &#39;Poppins&#39;, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+            height: 100vh;
+            width: 100vw;
+            color: white;
+            background: linear-gradient(-45deg, #590d22, #800f2f, #a4133c, #ff4d6d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Roses Background */
+        .falling-rose {
+            position: absolute;
+            top: -10%;
+            font-size: 1.5rem;
+            animation: fall linear forwards;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Music Control */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:active { transform: scale(0.9); }
+        .music-icon { font-size: 1.2rem; }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Card / Section Styles */
+        .step {
+            position: absolute;
+            width: 90%;
+            max-width: 400px;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            pointer-events: none; /* Prevent clicks when hidden */
+            display: none;
+        }
+
+        .step.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: all;
+            display: block;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: &#39;Dancing Script&#39;, cursive;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            min-height: 60px; /* Prevent layout shift on typing */
+        }
+
+        /* Images */
+        .photo-frame {
+            width: 100%;
+            height: 300px; /* Adjusted height for portrait photos */
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 4px solid rgba(255,255,255,0.6);
+            position: relative;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills box nicely */
+            transition: transform 5s ease;
+        }
+
+        .photo-frame:hover img { transform: scale(1.1); }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.6);
+        }
+
+        .btn:active { transform: translateY(1px); }
+
+        /* Big Rose Animation */
+        .big-rose {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            animation: confetti-fall linear forwards;
+            top: -10px;
+            z-index: 1000;
+        }
+        
+        @keyframes confetti-fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Global Background Music (Plays everywhere EXCEPT Step 2) -->
+    <audio id="bgMusic" loop="">
+      <source src="https://cdn.pixabay.com/download/audio/2022/02/07/audio_6590c29b4e.mp3?filename=romantic-piano-11105.mp3" type="audio/mpeg" />
+    </audio>
+    <!-- 2. Special Step 2 Audio (Only plays on Step 2) -->
+    <audio id="step2Music">
+      <source src="my-song.mp3" type="audio/mpeg" />
+    </audio>
+    <div class="music-btn" onclick="toggleMusic()">
+      <span class="music-icon" id="musicIcon">      🔇
+</span>
+    </div>
+    <div class="container">
+      <!-- STEP 0: Welcome -->
+      <div class="step active" id="step0">
+        <div class="big-rose">
+          🌹
+        </div>
+        <h1>
+          Hey Beautiful love My MRUN!
+        </h1>
+        <p>
+          I have a little surprise for you today...
+        </p>
+        <button class="btn" onclick="nextStep(1)">
+          Click to Start
+        </button>
+      </div>
+      <!-- STEP 1: The Question -->
+      <div class="step" id="step1">
+        <h1>
+          Do you know?
+        </h1>
+        <p id="type-text-1">
+        </p>
+        <button class="btn" onclick="nextStep(2)">
+          Tell me why ❤️
+        </button>
+      </div>
+      <!-- STEP 2: The Memory (MODIFIED STEP) -->
+      <div class="step" id="step2">
+        <div class="photo-frame">
+          <!-- IMPORTANT: Make sure your image is named 'my-photo.jpg' -->
+          <img src="my-photo.jpg" alt="Our Beautiful Memory" onerror="this.src=&#39;https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&amp;w=1000&amp;auto=format&amp;fit=crop&#39;" />
+        </div>
+        <h1>
+          Every Moment...
+        </h1>
+        <p>
+          Spending time with you feels like a beautiful dream I never want to wake up from.
+        </p>
+        <button class="btn" onclick="nextStep(3)">
+          Continue 🌹
+        </button>
+      </div>
+      <!-- STEP 3: The Offering -->
+      <div class="step" id="step3">
+        <h1>
+          A Rose For You
+        </h1>
+        <div class="big-rose" style="font-size: 8rem; cursor: pointer;" onclick="popHeart()">
+          🌹
+        </div>
+        <p>
+          Roses are red, violets are blue,
+          <br />
+          I am so lucky to have a partner like you.
+        </p>
+        <button class="btn" onclick="nextStep(4)">
+          Accept Rose 🤲
+        </button>
+      </div>
+      <!-- STEP 4: The Promise -->
+      <div class="step" id="step4">
+        <h1>
+          My Promise
+        </h1>
+        <p id="type-text-2">
+        </p>
+        <button class="btn" onclick="nextStep(5)">
+          One Last Thing ✨
+        </button>
+      </div>
+      <!-- STEP 5: Grand Finale -->
+      <div class="step" id="step5">
+        <div class="photo-frame">
+          <img src="https://images.unsplash.com/photo-1494972308805-463bc619d34e?q=80&amp;w=1000&amp;auto=format&amp;fit=crop" alt="Flowers" />
+        </div>
+        <h1>
+          Happy Rose Day!
+        </h1>
+        <p>
+          May your life be as beautiful and fragrant as a blooming rose. I love you!
+        </p>
+        <button class="btn" onclick="restart()">
+          Replay 💖
+        </button>
+      </div>
+    </div>
+    <script>
+      // --- Configuration &amp; State ---
+        let currentStep = 0;
+        const totalSteps = 6; 
+        
+        // Audio Elements
+        const globalMusic = document.getElementById(&#39;bgMusic&#39;);
+        const specialMusic = document.getElementById(&#39;step2Music&#39;);
+        const musicIcon = document.getElementById(&#39;musicIcon&#39;);
+        
+        let isGlobalMusicEnabled = false; // Tracks if user clicked the music button
+
+        // --- Typing Texts ---
+        const texts = {
+            1: &#34;Today is Rose Day, the beginning of a week full of love. But for me, every day is special because you are in it.&#34;,
+            4: &#34;Just like a rose, my love for you will bloom forever. No matter the thorns (hard times), I will always hold on to you.&#34;
+        };
+
+        // --- Functions ---
+
+        // 1. Music Control (Global Button)
+        function toggleMusic() {
+            if (currentStep === 2) {
+                // If we are on step 2, button toggles the Special Music
+                if (specialMusic.paused) {
+                    specialMusic.play();
+                    musicIcon.textContent = &#34;🎵&#34;;
+                } else {
+                    specialMusic.pause();
+                    musicIcon.textContent = &#34;🔇&#34;;
+                }
+            } else {
+                // Otherwise, button toggles Global Music
+                if (isGlobalMusicEnabled) {
+                    globalMusic.pause();
+                    musicIcon.textContent = &#34;🔇&#34;;
+                    isGlobalMusicEnabled = false;
+                } else {
+                    globalMusic.play().catch(e =&gt; console.log(&#34;Interaction needed&#34;));
+                    musicIcon.textContent = &#34;🎵&#34;;
+                    isGlobalMusicEnabled = true;
+                }
+            }
+        }
+
+        // 2. Navigation
+        function nextStep(stepIndex) {
+            // Hide current
+            document.getElementById(`step${currentStep}`).classList.remove(&#39;active&#39;);
+            
+            // Wait for transition, then show next
+            setTimeout(() =&gt; {
+                const prevStep = currentStep;
+                currentStep = stepIndex;
+                
+                const nextEl = document.getElementById(`step${currentStep}`);
+                nextEl.classList.add(&#39;active&#39;);
+                
+                // Trigger Step Specific Actions (Audio &amp; Typewriter)
+                handleStepLogic(stepIndex, prevStep);
+                
+                // Burst Confetti
+                createConfetti();
+                
+                // Auto-start global music on Step 1 if not already playing
+                if (stepIndex === 1 &amp;&amp; !isGlobalMusicEnabled) {
+                    toggleMusic();
+                }
+            }, 500);
+        }
+
+        function restart() {
+            document.getElementById(`step${currentStep}`).classList.remove(&#39;active&#39;);
+            currentStep = 0;
+            // Stop specific music if restarting from step 2 (edge case)
+            specialMusic.pause();
+            specialMusic.currentTime = 0;
+            
+            setTimeout(() =&gt; {
+                document.getElementById(&#39;step0&#39;).classList.add(&#39;active&#39;);
+            }, 500);
+        }
+
+        // 3. Step Logic (Audio Switching &amp; Typing)
+        function handleStepLogic(step, prevStep) {
+            
+            // --- Audio Management ---
+            if (step === 2) {
+                // ENTERING Step 2:
+                // 1. Pause global music
+                globalMusic.pause();
+                // 2. Play special music
+                specialMusic.currentTime = 0;
+                specialMusic.play().catch(e =&gt; console.log(&#34;Autoplay blocked&#34;));
+                // Update icon to show sound is on
+                musicIcon.textContent = &#34;🎵&#34;;
+                
+            } else if (prevStep === 2) {
+                // LEAVING Step 2:
+                // 1. Stop special music
+                specialMusic.pause();
+                specialMusic.currentTime = 0;
+                
+                // 2. Resume global music ONLY if user had it enabled before
+                if (isGlobalMusicEnabled) {
+                    globalMusic.play();
+                    musicIcon.textContent = &#34;🎵&#34;;
+                } else {
+                    musicIcon.textContent = &#34;🔇&#34;;
+                }
+            }
+
+            // --- Typing Effects ---
+            if (step === 1) {
+                typeWriter(texts[1], &#39;type-text-1&#39;);
+            } else if (step === 4) {
+                typeWriter(texts[4], &#39;type-text-2&#39;);
+            }
+        }
+
+        // 4. Typewriter Effect
+        function typeWriter(text, elementId) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = &#34;&#34;;
+            let i = 0;
+            const speed = 50; 
+
+            function type() {
+                if (i &lt; text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // 5. Falling Roses Animation
+        function createFallingRoses() {
+            const rose = document.createElement(&#39;div&#39;);
+            rose.innerText = &#39;🌹&#39;;
+            rose.classList.add(&#39;falling-rose&#39;);
+            rose.style.left = Math.random() * 100 + &#39;vw&#39;;
+            rose.style.animationDuration = Math.random() * 3 + 2 + &#39;s&#39;;
+            rose.style.fontSize = Math.random() * 1 + 1 + &#39;rem&#39;;
+            
+            document.body.appendChild(rose);
+
+            setTimeout(() =&gt; {
+                rose.remove();
+            }, 5000);
+        }
+
+        setInterval(createFallingRoses, 300);
+
+        // 6. Confetti Explosion
+        function createConfetti() {
+            for (let i = 0; i &lt; 50; i++) {
+                const confetti = document.createElement(&#39;div&#39;);
+                confetti.classList.add(&#39;confetti&#39;);
+                
+                const colors = [&#39;#ff4d6d&#39;, &#39;#fff&#39;, &#39;#ffccd5&#39;];
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                confetti.style.left = &#34;50%&#34;;
+                confetti.style.top = &#34;50%&#34;;
+                
+                const x = (Math.random() - 0.5) * window.innerWidth;
+                const y = (Math.random() - 1) * window.innerHeight;
+                
+                confetti.animate([
+                    { transform: &#39;translate(0,0) rotate(0deg)&#39;, opacity: 1 },
+                    { transform: `translate(${x}px, ${y}px) rotate(720deg)`, opacity: 0 }
+                ], {
+                    duration: 1000 + Math.random() * 1000,
+                    easing: &#39;cubic-bezier(0.25, 1, 0.5, 1)&#39;
+                });
+
+                document.body.appendChild(confetti);
+                setTimeout(() =&gt; confetti.remove(), 2000);
+            }
+        }
+
+        // 7. Interactive Heart Pop
+        function popHeart() {
+            createConfetti();
+            const rose = document.querySelector(&#39;#step3 .big-rose&#39;);
+            rose.style.transform = &#34;scale(1.2)&#34;;
+            setTimeout(() =&gt; rose.style.transform = &#34;scale(1)&#34;, 200);
+        }
+    </script>
+  </body>
+</html>
