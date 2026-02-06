@@ -1,159 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Happy Rose Day 🌹
-    </title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet" />
-    <style>
-      :root {
-            --primary: #ff4d6d;
-            --secondary: #c9184a;
-            --dark: #590d22;
-            --light: #fff0f3;
-            --glass: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.3);
-        }
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Rose Day Mrun🌹</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
-        body {
-            font-family: &#39;Poppins&#39;, sans-serif;
-            overflow: hidden; /* Prevent scrolling */
-            height: 100vh;
-            width: 100vw;
-            color: white;
-            background: linear-gradient(-45deg, #590d22, #800f2f, #a4133c, #ff4d6d);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
+<style>
+:root {
+  --primary:#ff4d6d;
+  --secondary:#c9184a;
+  --dark:#590d22;
+  --light:#fff0f3;
+  --glass:rgba(255,255,255,0.15);
+  --glass-border:rgba(255,255,255,0.3);
+}
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        /* Floating Roses Background */
-        .falling-rose {
-            position: absolute;
-            top: -10%;
-            font-size: 1.5rem;
-            animation: fall linear forwards;
-            z-index: 1;
-            opacity: 0.7;
-        }
+body{
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+  height:100vh;
+  background:linear-gradient(-45deg,#590d22,#800f2f,#a4133c,#ff4d6d);
+  background-size:400% 400%;
+  animation:gradientBG 15s ease infinite;
+  color:white;
+}
 
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
+@keyframes gradientBG{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-        /* Music Control */
-        .music-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
+/* ===== FIXED STEP SYSTEM ===== */
+.step{
+  position:absolute;
+  width:90%;
+  max-width:400px;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);
+  border-radius:24px;
+  padding:40px 20px;
+  text-align:center;
+  box-shadow:0 10px 40px rgba(0,0,0,.3);
+  opacity:0;
+  transform:scale(.9) translateY(20px);
+  transition:all .6s cubic-bezier(.68,-.55,.27,1.55);
+  pointer-events:none;
+  visibility:hidden;   /* FIX */
+}
 
-        .music-btn:active { transform: scale(0.9); }
-        .music-icon { font-size: 1.2rem; }
+.step.active{
+  opacity:1;
+  transform:scale(1) translateY(0);
+  pointer-events:auto;
+  visibility:visible;  /* FIX */
+}
 
-        /* Main Container */
-        .container {
-            position: relative;
-            z-index: 10;
-            height: 100%;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.container{
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-        /* Card / Section Styles */
-        .step {
-            position: absolute;
-            width: 90%;
-            max-width: 400px;
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            opacity: 0;
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            pointer-events: none; /* Prevent clicks when hidden */
-            display: none;
-        }
+/* UI */
+h1{
+  font-family:'Dancing Script',cursive;
+  font-size:3rem;
+  margin-bottom:20px;
+}
 
-        .step.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            pointer-events: all;
-            display: block;
-        }
+p{font-size:1.1rem;line-height:1.6;margin-bottom:30px;}
 
-        /* Typography */
-        h1 {
-            font-family: &#39;Dancing Script&#39;, cursive;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+.btn{
+  background:linear-gradient(45deg,var(--secondary),var(--primary));
+  border:none;
+  padding:12px 30px;
+  border-radius:50px;
+  color:white;
+  font-size:1.1rem;
+  cursor:pointer;
+  box-shadow:0 5px 20px rgba(255,77,109,.4);
+}
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            min-height: 60px; /* Prevent layout shift on typing */
-        }
+.big-rose{
+  font-size:6rem;
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+  50%{transform:translateY(-15px)}
+}
 
-        /* Images */
-        .photo-frame {
-            width: 100%;
-            height: 300px; /* Adjusted height for portrait photos */
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            border: 4px solid rgba(255,255,255,0.6);
-            position: relative;
-        }
+/* Music button */
+.music-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:var(--glass);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  z-index:100;
+}
+</style>
+</head>
 
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures image fills box nicely */
-            transition: transform 5s ease;
-        }
+<body>
 
-        .photo-frame:hover img { transform: scale(1.1); }
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/02/07/audio_6590c29b4e.mp3" />
+</audio>
 
-        /* Buttons */
-        .btn {
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
+<audio id="step2Music">
+  <source src="my-song.mp3" />
+</audio>
+
+<div class="music-btn" onclick="toggleMusic()">
+  <span id="musicIcon">🔇</span>
+</div>
+
+<div class="container">
+
+<div class="step active" id="step0">
+  <div class="big-rose">🌹</div>
+  <h1>Hey Beautiful love My MRUN!</h1>
+  <p>I have a little surprise for you today...</p>
+  <button class="btn" onclick="nextStep(1)">Click to Start</button>
+</div>
+
+<div class="step" id="step1">
+  <h1>Do you know?</h1>
+  <p id="type-text-1"></p>
+  <button class="btn" onclick="nextStep(2)">Tell me why ❤️</button>
+</div>
+
+<div class="step" id="step2">
+  <h1>Every Moment...</h1>
+  <p>Spending time with you feels like a dream.</p>
+  <button class="btn" onclick="nextStep(3)">Continue 🌹</button>
+</div>
+
+<div class="step" id="step3">
+  <h1>A Rose For You</h1>
+  <div class="big-rose" onclick="popHeart()">🌹</div>
+  <button class="btn" onclick="nextStep(4)">Accept Rose 🤲</button>
+</div>
+
+<div class="step" id="step4">
+  <h1>My Promise</h1>
+  <p id="type-text-2"></p>
+  <button class="btn" onclick="nextStep(5)">One Last Thing ✨</button>
+</div>
+
+<div class="step" id="step5">
+  <h1>Happy Rose Day MRUN !</h1>
+  <p>I love you 💖</p>
+  <button class="btn" onclick="restart()">Replay</button>
+</div>
+
+</div>
+
+<script>
+let currentStep=0;
+const bgMusic=document.getElementById("bgMusic");
+const step2Music=document.getElementById("step2Music");
+const musicIcon=document.getElementById("musicIcon");
+let musicOn=false;
+
+function toggleMusic(){
+  if(musicOn){bgMusic.pause();musicIcon.textContent="🔇";}
+  else{bgMusic.play().catch(()=>{});musicIcon.textContent="🎵";}
+  musicOn=!musicOn;
+}
+
+function nextStep(step){
+  document.getElementById(`step${currentStep}`).classList.remove("active");
+  setTimeout(()=>{
+    currentStep=step;
+    document.getElementById(`step${currentStep}`).classList.add("active");
+  },300);
+}
+
+function restart(){
+  document.getElementById(`step${currentStep}`).classList.remove("active");
+  currentStep=0;
+  setTimeout(()=>document.getElementById("step0").classList.add("active"),300);
+}
+
+function popHeart(){}
+</script>
+
+</body>
+</html>
+ var(--secondary), var(--primary));
             color: white;
             border: none;
             padding: 12px 30px;
